@@ -1,0 +1,48 @@
+.inputWrapper {
+	&[data-size='lg'] {
+		input {
+			padding: 18.5px 18px;
+		}
+	}
+}
+
+.input {
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 19.36px;
+	background-color: #f6f6f9;
+	border: none;
+	height: 56px;
+
+	&::placeholder,
+	&:disabled,
+	&:disabled::placeholder {
+		color: var(--mantine-color-gray-4) !important;
+	}
+}
+
+.inputError {
+	color: var(--mantine-color-gray-9);
+
+	&,
+	&:focus-within {
+		border-color: var(--mantine-color-red-6);
+	}
+}
+
+.label {
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 16.94px;
+	color: #6e7686;
+}
+
+.labelError {
+	color: var(--mantine-color-red-6) !important;
+}
+
+.errorMessage {
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 28px;
+}

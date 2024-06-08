@@ -1,0 +1,16 @@
+.submitBtn {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 21.78px;
+	background-color: #13a3b9;
+	border-radius: 5px;
+    color: #FFF;
+}
+
+.btn {
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 16.94px;
+    border: 1px solid #A7B4CC;
+    color: #A7B4CC
+}

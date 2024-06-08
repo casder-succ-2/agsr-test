@@ -1,0 +1,53 @@
+.footer {
+	position: initial;
+	display: grid;
+	grid-template-columns: repeat(3, auto);
+	grid-template-rows: repeat(3, auto);
+	max-width: 1440px;
+	min-width: 1440px;
+	margin: auto;
+	height: 570px !important;
+	padding: 80px 0;
+}
+
+.title {
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 24.2px;
+	color: #272a33;
+}
+
+.text {
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 22.4px;
+	color: #676a71;
+}
+
+.link {
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 16.94px;
+	color: #13a3b9;
+}
+
+.partner {
+	padding: 11px 14px;
+	border-radius: 5px;
+	background-color: #ededf4;
+
+	p {
+		font-size: 14px;
+		font-weight: 500;
+		line-height: 16.94px;
+		color: #a8aaae;
+	}
+}
+
+.developer {
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 22.4px;
+	text-align: center;
+	color: #a7b4cc;
+}
