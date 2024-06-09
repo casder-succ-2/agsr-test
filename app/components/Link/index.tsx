@@ -24,7 +24,7 @@ export const Link = ({
 	}
 
 	return (
-		<NextLink href={href} passHref legacyBehavior>
+		<NextLink href={href} passHref legacyBehavior color='inherit'>
 			<Anchor
 				rel='noreferrer'
 				target={inNewTab ? '_blank' : '_self'}

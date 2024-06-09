@@ -1,4 +1,4 @@
-import { setCookie, getCookie } from 'cookies-next'
+import { setCookie, getCookie, deleteCookie } from 'cookies-next'
 
 export const setAuthCookie = (token: string, name: string) => {
 	const toBase64 = Buffer.from(token).toString('base64')
@@ -12,4 +12,8 @@ export const getAuthCookie = (name: string) => {
 	if (!cookie) return null
 
 	return Buffer.from(cookie, 'base64').toString('ascii')
+}
+
+export const removeAuthCookie = (name: string) => {
+	deleteCookie(name, { path: '/' })
 }

@@ -1,15 +1,17 @@
 import { MantineProvider, ColorSchemeScript } from '@mantine/core'
+import { Notifications } from '@mantine/notifications'
 
 import { theme } from '@/theme/theme'
-import { BaseLayout, AuthWrapper } from '@/app/components'
+import { BaseLayout, AuthLayout } from '@/app/components'
 
 import { StoreProvider } from './StoreProvider'
 
 import '@mantine/core/styles.layer.css'
+import '@mantine/notifications/styles.css'
 
 export const metadata = {
 	title: 'AGSR',
-	description: 'Test project for AGSR'
+	description: 'Test project for AGSR',
 }
 
 export default function RootLayout({ children }: { children: any }) {
@@ -27,9 +29,10 @@ export default function RootLayout({ children }: { children: any }) {
 
 				<body>
 					<MantineProvider theme={theme}>
-						<AuthWrapper>
-							<BaseLayout>{children}</BaseLayout>
-						</AuthWrapper>
+						<Notifications position='top-center' />
+						<BaseLayout>
+							<AuthLayout>{children}</AuthLayout>
+						</BaseLayout>
 					</MantineProvider>
 				</body>
 			</html>

@@ -1,7 +1,11 @@
-type Props = {
-	children: React.ReactNode
-}
+import { Box } from '@mantine/core'
 
-export default function LoginLayout({ children }: Props) {
-	return <>{children}</>
+import { ProtectedLayout } from '@/app/components'
+
+export default function RootLayout({ children }: { children: any }) {
+	return (
+		<ProtectedLayout>
+			<Box h={'100dvh'}>{children}</Box>
+		</ProtectedLayout>
+	)
 }

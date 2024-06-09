@@ -1,0 +1,9 @@
+.body {
+	margin: auto;
+	min-width: 1520px;
+	max-width: 1520px;
+	min-height: 100dvh;
+	padding-top: 0;
+	padding-left: 40px;
+	padding-right: 40px;
+}

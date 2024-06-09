@@ -1,0 +1,10 @@
+.item {
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 19.36px;
+	color: #676a71;
+}
+
+.active {
+	color: #272a33;
+}

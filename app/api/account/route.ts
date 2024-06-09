@@ -7,9 +7,17 @@ import { database } from '@/db'
 import { generateToken, verifyToken } from '@/lib/jwt'
 import { compareTextWithHash } from '@/lib/security'
 
-const schema = z.object({
+const loginSchema = z.object({
 	email: z.string().email().min(1, 'Required'),
-	password: z.string().min(1, 'Please enter password')
+	password: z.string().min(1, 'Please enter password'),
+})
+
+const updateSchema = z.object({
+	lastName: z.string().min(1, 'Required'),
+	middleName: z.string().min(1, 'Required'),
+	firstName: z.string().min(1, 'Required'),
+	identificationNumber: z.string().min(1, 'Required'),
+	userName: z.string().min(1, 'Required'),
 })
 
 export async function GET(req: Request) {
@@ -29,17 +37,17 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
 	const { email, password } = await req.json()
 
-	const validatedFields = schema.safeParse({
+	const validatedFields = loginSchema.safeParse({
 		email,
-		password
+		password,
 	})
 
 	if (!validatedFields.success) {
 		return NextResponse.json(
 			{
-				...validatedFields.error.flatten().fieldErrors
+				...validatedFields.error.flatten().fieldErrors,
 			},
-			{ status: 400 }
+			{ status: 400 },
 		)
 	}
 
@@ -48,7 +56,7 @@ export async function POST(req: Request) {
 	if (!user) {
 		return NextResponse.json(
 			{ message: 'The email or password you have entered is invalid' },
-			{ status: 401 }
+			{ status: 401 },
 		)
 	}
 
@@ -57,7 +65,7 @@ export async function POST(req: Request) {
 	if (!isPasswordMatch) {
 		return NextResponse.json(
 			{ message: 'The email or password you have entered is invalid' },
-			{ status: 401 }
+			{ status: 401 },
 		)
 	}
 
@@ -65,4 +73,47 @@ export async function POST(req: Request) {
 	cookies().set('auth_token', accessToken)
 
 	return NextResponse.json({ user })
+}
+
+export async function PUT(req: Request) {
+	const cookieStore = cookies()
+	const bearerToken = cookieStore.get('auth_token')
+
+	const { lastName, middleName, firstName, identificationNumber, userName } =
+		await req.json()
+
+	const validatedFields = updateSchema.safeParse({
+		lastName,
+		middleName,
+		firstName,
+		identificationNumber,
+		userName,
+	})
+
+	if (!validatedFields.success) {
+		return NextResponse.json(
+			{
+				...validatedFields.error.flatten().fieldErrors,
+			},
+			{ status: 400 },
+		)
+	}
+
+	try {
+		const { id } = verifyToken(bearerToken?.value || '')
+
+		const updatedUser = await database.user.update({
+			where: { id },
+			data: {
+				lastName,
+				middleName,
+				firstName,
+				identificationNumber,
+				userName,
+			},
+		})
+		return NextResponse.json({ user: updatedUser })
+	} catch (error) {
+		return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
+	}
 }

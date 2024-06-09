@@ -30,7 +30,7 @@ const mockData = [
 ]
 
 async function upsertMockData(data) {
-	const systems = await prisma.systems.createMany({ data })
+	const systems = await prisma.automatedInformationSystem.createMany({ data })
 	const user = await prisma.user.create({
 		data: {
 			email: 'test@gmail.com',

@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import {
 	ActionIcon,
 	AppShellHeader,
@@ -10,32 +11,58 @@ import {
 	Text,
 	Menu,
 	MenuTarget,
-	MenuDropdown
+	MenuDropdown,
+	Indicator,
 } from '@mantine/core'
-import { IconChevronDown } from '@tabler/icons-react'
+import { IconChevronDown, IconBell } from '@tabler/icons-react'
 
 import { NavLinks, Link } from '@/app/components'
-import { useAppSelector } from '@/lib/store/hooks'
-import { selectAccount } from '@/lib/store/features/account/accountSlice'
+import { LogoIcon, UserRoundIcon } from '@/public/icons'
 
-import { BellIcon, LogoIcon, UserRoundIcon } from '@/public/icons'
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks'
+import {
+	logout,
+	selectAccount,
+} from '@/lib/store/features/account/accountSlice'
+import { selectNotificationCount } from '@/lib/store/features/notification/notificationSlice'
 
 import classes from './styles.module.css'
 
 export const Header = () => {
+	const { push } = useRouter()
+
+	const dispatch = useAppDispatch()
 	const account = useAppSelector(selectAccount)
+	const notificationsCount = useAppSelector(selectNotificationCount)
 
 	return (
 		<AppShellHeader className={classes.header}>
 			<Group justify='space-between' align='center'>
-				<Image alt='Logo' src={LogoIcon} />
+				<Image
+					alt='Logo'
+					src={LogoIcon}
+					onClick={() => push('/')}
+					style={{ cursor: 'pointer' }}
+				/>
 
 				<NavLinks />
 
 				<Group gap={20}>
-					<ActionIcon radius='xl' bg='#F9F9F9' size='3rem'>
-						<Image alt='bell' src={BellIcon} />
-					</ActionIcon>
+					<Indicator
+						size={18}
+						color='#13A3B9'
+						label={notificationsCount}
+						disabled={!notificationsCount}
+						styles={{ root: {} }}
+						className={classes.indicator}
+					>
+						<ActionIcon radius='xl' bg='#F9F9F9' size='3rem'>
+							<IconBell
+								size={32}
+								color={notificationsCount ? '#13A3B9' : '#A7B4CC'}
+							/>
+						</ActionIcon>
+					</Indicator>
 
 					<Divider orientation='vertical' />
 
@@ -55,7 +82,7 @@ export const Header = () => {
 								<MenuTarget>
 									<Group gap={10} style={{ cursor: 'pointer' }}>
 										<Text className={classes.menuTarget}>
-											{account?.firstName || 'User'}{' '}
+											{account?.firstName || 'User'}
 											{account?.lastName || 'User'}
 										</Text>
 
@@ -66,10 +93,16 @@ export const Header = () => {
 								</MenuTarget>
 
 								<MenuDropdown>
-									<Menu.Item>Профиль</Menu.Item>
+									<Menu.Item onClick={() => push('/profile')}>
+										Профиль
+									</Menu.Item>
 
-									<Menu.Item>
-										<Link href={'/login'}>Личный кабинет</Link>
+									<Menu.Item onClick={() => push('/account')}>
+										Личный кабинет
+									</Menu.Item>
+
+									<Menu.Item onClick={() => dispatch(logout())}>
+										Выход
 									</Menu.Item>
 								</MenuDropdown>
 							</Menu>

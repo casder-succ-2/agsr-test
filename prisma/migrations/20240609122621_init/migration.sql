@@ -7,12 +7,14 @@ CREATE TABLE "User" (
     "middleName" TEXT,
     "password" TEXT NOT NULL,
     "userName" TEXT,
+    "identificationNumber" TEXT,
+    "phoneNumber" TEXT,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- CreateTable
-CREATE TABLE "Systems" (
+CREATE TABLE "AutomatedInformationSystem" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
     "metadata" INTEGER NOT NULL,

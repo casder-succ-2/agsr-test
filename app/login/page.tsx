@@ -4,16 +4,18 @@ import { useEffect } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Center, Stack, Title } from '@mantine/core'
+import { Button, Center, Stack, Title, Anchor } from '@mantine/core'
 
-import { ControlledTextInput, ControlledPasswordInput } from '@/app/components'
+import {
+	ControlledTextInput,
+	ControlledPasswordInput,
+} from '@/app/components'
 
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks'
 import {
 	signIn,
-	selectAccount,
+	selectError,
 	selectStatus,
-	selectError
 } from '@/lib/store/features/account/accountSlice'
 
 import classes from './styles.module.css'
@@ -23,26 +25,27 @@ const schema = z.object({
 		.string()
 		.min(1, 'Please enter email')
 		.email('Email format is incorrect.'),
-	password: z.string().min(1, 'Please enter password')
+	password: z.string().min(1, 'Please enter password'),
 })
 
 type FormType = z.infer<typeof schema>
 
 export default function LoginPage() {
 	const dispatch = useAppDispatch()
-	const account = useAppSelector(selectAccount)
 	const accountStatus = useAppSelector(selectStatus)
 	const error = useAppSelector(selectError)
-
-	console.log(error)
 
 	const {
 		control,
 		setError,
 		handleSubmit,
-		formState: { errors }
+		formState: { errors },
 	} = useForm<FormType>({
-		resolver: zodResolver(schema)
+		resolver: zodResolver(schema),
+		defaultValues: {
+			email: '',
+			password: '',
+		},
 	})
 
 	const onSubmit = (data: FormType) => {

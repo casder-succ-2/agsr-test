@@ -1,0 +1,31 @@
+.personalInfo {
+	display: grid;
+	grid-template-columns: repeat(2, auto);
+	grid-template-rows: repeat(4, auto);
+	gap: 30px;
+	justify-items: stretch;
+}
+
+.title {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 21.78px;
+}
+
+.editBtn {
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 19.36px;
+	color: #13a3b9;
+	cursor: pointer;
+}
+
+.submitBtn {
+	width: 270px;
+	height: 56px;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 21.78px;
+	color: #fff;
+	margin-top: 40px;
+}

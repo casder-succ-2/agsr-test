@@ -9,13 +9,11 @@ interface ControlledPasswordInputProps
 	name: string
 	control: Control<any>
 	errorMessage?: string
-	defaultValue?: string
 }
 
 export const ControlledPasswordInput = ({
 	name,
 	control,
-	defaultValue = '',
 	errorMessage,
 	...rest
 }: ControlledPasswordInputProps) => (
@@ -32,7 +30,6 @@ export const ControlledPasswordInput = ({
 				visibilityToggleIcon={({ reveal }) =>
 					reveal ? <IconEye /> : <IconEyeOff />
 				}
-				defaultValue={defaultValue}
 				error={errorMessage}
 			/>
 		)}

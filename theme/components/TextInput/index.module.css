@@ -1,10 +1,4 @@
 .inputWrapper {
-	&[data-size='sm'] {
-		input {
-			height: 40px;
-		}
-	}
-
 	&[data-size='lg'] {
 		input {
 			height: 56px;
