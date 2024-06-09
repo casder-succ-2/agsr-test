@@ -1,5 +1,26 @@
-# Mantine Next Template
+## Начало работы
 
-Get started with the template by clicking `Use this template` button on the top of the page.
+Чтобы начать работу с проектом, выполните следующие шаги:
 
-[Documentation](https://mantine.dev/guides/next/)
+1. Установите зависимости с помощью npm:
+
+```bash
+npm install
+```
+
+2. Создайте файл .env, используя файл .env.example в качестве примера.
+
+3. Примените миграции к базе данных и заполните ее тестовыми данными:
+
+```bash
+npx prisma db push
+npx prisma db seed
+```
+
+4. Использование
+
+Теперь, когда ваше приложение настроено, вы можете приступить к его использованию. 
+Воспользуйтесь следующими учетными данными для входа:
+
+Email: test@gmail.com
+Пароль: qwe12345

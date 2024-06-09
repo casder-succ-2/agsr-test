@@ -15,12 +15,15 @@ export const notificationSlice = createAppSlice({
 		increment: create.reducer(state => {
 			state.count = 4
 		}),
+		clearNotifications: create.reducer(state => {
+			state.count = 0
+		}),
 	}),
 	selectors: {
 		selectNotificationCount: state => state.count,
 	},
 })
 
-export const { increment } = notificationSlice.actions
+export const { increment, clearNotifications } = notificationSlice.actions
 
 export const { selectNotificationCount } = notificationSlice.selectors

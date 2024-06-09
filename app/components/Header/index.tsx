@@ -24,7 +24,10 @@ import {
 	logout,
 	selectAccount,
 } from '@/lib/store/features/account/accountSlice'
-import { selectNotificationCount } from '@/lib/store/features/notification/notificationSlice'
+import {
+	selectNotificationCount,
+	clearNotifications,
+} from '@/lib/store/features/notification/notificationSlice'
 
 import classes from './styles.module.css'
 
@@ -53,7 +56,6 @@ export const Header = () => {
 						color='#13A3B9'
 						label={notificationsCount}
 						disabled={!notificationsCount}
-						styles={{ root: {} }}
 						className={classes.indicator}
 					>
 						<ActionIcon radius='xl' bg='#F9F9F9' size='3rem'>
@@ -101,7 +103,12 @@ export const Header = () => {
 										Личный кабинет
 									</Menu.Item>
 
-									<Menu.Item onClick={() => dispatch(logout())}>
+									<Menu.Item
+										onClick={() => {
+											dispatch(logout())
+											dispatch(clearNotifications())
+										}}
+									>
 										Выход
 									</Menu.Item>
 								</MenuDropdown>
