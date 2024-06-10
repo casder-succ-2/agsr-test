@@ -22,6 +22,7 @@ export interface ContactInfo {
 export const fetchAccount = async () => {
 	try {
 		const response = await apiService.get('/api/account')
+		
 		return response as { user: Partial<User> }
 	} catch (error) {
 		const e = error as { data: { message: string } }
@@ -37,7 +38,7 @@ export const login = async ({
 	password: string
 }) => {
 	try {
-		const response = await apiService.post('/api/account', { email, password })
+		const response = await apiService.post('/api/account/login', { email, password })
 		return response as { user: Partial<User> }
 	} catch (error) {
 		const e = error as { data: { message: string } }
@@ -47,7 +48,7 @@ export const login = async ({
 
 export const updatePersonalInfo = async (data: PersonalInfo) => {
 	try {
-		const response = await apiService.put('/api/account', data)
+		const response = await apiService.put('/api/account/update', data)
 		return response as { user: Partial<User> }
 	} catch (error) {
 		const e = error as { data: { message: string } }

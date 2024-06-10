@@ -4,19 +4,26 @@ import { NextResponse } from 'next/server'
 import { database } from '@/db'
 
 const updateSchema = z.object({
-	email: z.string().min(1, 'Required'),
-	phoneNumber: z.string().min(1, 'Required'),
+	lastName: z.string().min(1, 'Required'),
+	middleName: z.string().min(1, 'Required'),
+	firstName: z.string().min(1, 'Required'),
+	identificationNumber: z.string().min(1, 'Required'),
+	userName: z.string().min(1, 'Required'),
 })
 
 export async function PUT(req: Request) {
 	const headers = req.headers
 	const userId = headers.get('userId') || ''
 
-	const { email, phoneNumber } = await req.json()
+	const { lastName, middleName, firstName, identificationNumber, userName } =
+		await req.json()
 
 	const validatedFields = updateSchema.safeParse({
-		email,
-		phoneNumber,
+		lastName,
+		middleName,
+		firstName,
+		identificationNumber,
+		userName,
 	})
 
 	if (!validatedFields.success) {
@@ -29,15 +36,17 @@ export async function PUT(req: Request) {
 	}
 
 	try {
-		const user = await database.user.update({
+		const updatedUser = await database.user.update({
 			where: { id: userId },
 			data: {
-				email,
-				phoneNumber,
+				lastName,
+				middleName,
+				firstName,
+				identificationNumber,
+				userName,
 			},
 		})
-
-		return NextResponse.json({ user })
+		return NextResponse.json({ user: updatedUser })
 	} catch (error) {
 		return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
 	}

@@ -37,8 +37,6 @@ export const systemSlice = createAppSlice({
 					state.status = 'loading'
 				},
 				fulfilled: (state, action) => {
-					console.log(action);
-					
 					state.status = 'idle'
 					state.list = action.payload.list
 					state.count = action.payload.count

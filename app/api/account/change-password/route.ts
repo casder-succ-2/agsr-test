@@ -13,8 +13,8 @@ const updateSchema = z.object({
 })
 
 export async function PUT(req: Request) {
-	const cookieStore = cookies()
-	const bearerToken = cookieStore.get('auth_token')
+	const headers = req.headers
+	const userId = headers.get('userId') || ''
 
 	const { password, newPassword } = await req.json()
 
@@ -33,9 +33,8 @@ export async function PUT(req: Request) {
 	}
 
 	try {
-		const { id } = verifyToken(bearerToken?.value || '')
 		const user = await database.user.findUnique({
-			where: { id },
+			where: { id: userId },
 		})
 
 		const isPasswordMatch = await compareTextWithHash(
@@ -52,7 +51,7 @@ export async function PUT(req: Request) {
 
 		const newPasswordHash = await getHash(newPassword)
 		const updatedUser = await database.user.update({
-			where: { id },
+			where: { id: userId },
 			data: {
 				password: newPasswordHash,
 			},

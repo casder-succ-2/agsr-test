@@ -14,7 +14,6 @@ import {
 } from '@/lib/store/features/account/accountSlice'
 import { increment } from '@/lib/store/features/notification/notificationSlice'
 
-
 type Props = {
 	children?: React.ReactNode
 }
@@ -24,6 +23,7 @@ export const AuthLayout = ({ children }: Props) => {
 	const status = useAppSelector(selectStatus)
 	const account = useAppSelector(selectAccount)
 
+	//TODO: Does't work with http only
 	const auth_token = getAuthCookie('auth_token')
 
 	useLayoutEffect(() => {
