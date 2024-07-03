@@ -42,7 +42,19 @@ class ApiClient {
 		this._api = axios.create(axiosConfig)
 		this._api.interceptors.response.use(
 			(response: AxiosResponse) => response.data,
-			error => {
+			async error => {
+				const originalRequest = error.config
+
+				if (error.response.status === 401 && !originalRequest._retry) {
+					originalRequest._retry = true
+
+					await axios.get('/api/account/refresh-tokens', {
+						withCredentials: true,
+					})
+
+					return this._api(originalRequest)
+				}
+
 				if (axios.isCancel(error)) {
 					throw error
 				}
@@ -50,7 +62,7 @@ class ApiClient {
 				const errorResponse = error.response || {
 					status: error.code,
 					statusText: error.message,
-					data: error.data
+					data: error.data,
 				}
 
 				const errorHandlers = this._handlers.get('error') || []
@@ -59,59 +71,59 @@ class ApiClient {
 				})
 
 				return throwApiError(errorResponse)
-			}
+			},
 		)
 	}
 
 	get(
 		url: string,
 		params: any = {},
-		requestConfig: AxiosRequestConfig<any> = {}
+		requestConfig: AxiosRequestConfig<any> = {},
 	): Promise<any> {
 		return this._api({
 			method: 'get',
 			url,
 			params,
-			...requestConfig
+			...requestConfig,
 		})
 	}
 
 	post(
 		url: string,
 		data: any = {},
-		requestConfig: AxiosRequestConfig<any> = {}
+		requestConfig: AxiosRequestConfig<any> = {},
 	): Promise<any> {
 		return this._api({
 			method: 'post',
 			url,
 			data,
-			...requestConfig
+			...requestConfig,
 		})
 	}
 
 	put(
 		url: string,
 		data: any = {},
-		requestConfig: AxiosRequestConfig<any> = {}
+		requestConfig: AxiosRequestConfig<any> = {},
 	): Promise<any> {
 		return this._api({
 			method: 'put',
 			url,
 			data,
-			...requestConfig
+			...requestConfig,
 		})
 	}
 
 	delete(
 		url: string,
 		data: any = {},
-		requestConfig: AxiosRequestConfig<any> = {}
+		requestConfig: AxiosRequestConfig<any> = {},
 	): Promise<any> {
 		return this._api({
 			method: 'delete',
 			url,
 			data,
-			...requestConfig
+			...requestConfig,
 		})
 	}
 }
@@ -119,5 +131,5 @@ class ApiClient {
 export const apiService = new ApiClient({
 	baseURL: 'http://localhost:3000',
 	withCredentials: true,
-	responseType: 'json'
+	responseType: 'json',
 })

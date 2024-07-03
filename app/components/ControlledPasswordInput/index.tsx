@@ -1,3 +1,5 @@
+'use client'
+
 import { Control, Controller } from 'react-hook-form'
 import { PasswordInput, PasswordInputProps } from '@mantine/core'
 import { IconEye, IconEyeOff } from '@tabler/icons-react'
@@ -25,7 +27,7 @@ export const ControlledPasswordInput = ({
 				{...rest}
 				{...field}
 				classNames={{
-					input: classes.input
+					input: classes.input,
 				}}
 				visibilityToggleIcon={({ reveal }) =>
 					reveal ? <IconEye /> : <IconEyeOff />

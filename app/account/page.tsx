@@ -49,8 +49,6 @@ export default function AccountPage() {
 	const systemList = useAppSelector(selectList)
 	const systemCount = useAppSelector(selectCount)
 
-	console.log('action.payload.list', systemList)
-
 	const handleList = useDebouncedCallback(() => {
 		dispatch(getListAsync({ ...params, searchValue }))
 	}, 200)

@@ -21,7 +21,7 @@ import { LogoIcon, UserRoundIcon } from '@/public/icons'
 
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks'
 import {
-	logout,
+	logoutAsync,
 	selectAccount,
 } from '@/lib/store/features/account/accountSlice'
 import {
@@ -105,7 +105,7 @@ export const Header = () => {
 
 									<Menu.Item
 										onClick={() => {
-											dispatch(logout())
+											dispatch(logoutAsync())
 											dispatch(clearNotifications())
 										}}
 									>

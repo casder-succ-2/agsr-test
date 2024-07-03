@@ -15,14 +15,14 @@ export interface ChangePassword {
 }
 
 export interface ContactInfo {
-	email: string;
-	phoneNumber: string;
+	email: string
+	phoneNumber: string
 }
 
 export const fetchAccount = async () => {
 	try {
 		const response = await apiService.get('/api/account')
-		
+
 		return response as { user: Partial<User> }
 	} catch (error) {
 		const e = error as { data: { message: string } }
@@ -38,7 +38,20 @@ export const login = async ({
 	password: string
 }) => {
 	try {
-		const response = await apiService.post('/api/account/login', { email, password })
+		const response = await apiService.post('/api/account/login', {
+			email,
+			password,
+		})
+		return response as { user: Partial<User> }
+	} catch (error) {
+		const e = error as { data: { message: string } }
+		throw e.data.message
+	}
+}
+
+export const logout = async () => {
+	try {
+		const response = await apiService.put('/api/account/logout')
 		return response as { user: Partial<User> }
 	} catch (error) {
 		const e = error as { data: { message: string } }
@@ -68,11 +81,13 @@ export const changePassword = async (data: ChangePassword) => {
 
 export const updateContactInfo = async (data: ContactInfo) => {
 	try {
-		const response = await apiService.put('/api/account/change-contact-info', data)
+		const response = await apiService.put(
+			'/api/account/change-contact-info',
+			data,
+		)
 		return response as { user: Partial<User> }
 	} catch (error) {
 		const e = error as { data: { message: string } }
 		throw e.data.message
 	}
 }
-

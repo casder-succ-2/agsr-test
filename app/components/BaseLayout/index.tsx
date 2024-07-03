@@ -1,4 +1,4 @@
-import { AppShell, AppShellMain } from '@mantine/core'
+import { AppShell } from '@mantine/core'
 
 import { Footer, Header, Main } from '@/app/components'
 

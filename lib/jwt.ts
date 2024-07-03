@@ -1,25 +1,38 @@
-import jwt from 'jsonwebtoken'
 import { User } from '@prisma/client'
 import { SignJWT, jwtVerify } from 'jose'
 
-const secretKey = 'secret'
-const key = new TextEncoder().encode(secretKey)
+export const generateTokens = async (user: User) => {
+	const asKey = new TextEncoder().encode(process.env.ACCESS_TOKEN_SECRET)
+	const rfKey = new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET)
 
-type JWT_Payload = {
-	id: string
-	iat: number
-	exp: number
-}
+	const as = await new SignJWT({ id: user.id })
+		.setProtectedHeader({ alg: 'HS256' })
+		.setIssuedAt()
+		.setExpirationTime('5 seconds')
+		.sign(asKey)
 
-export const generateToken = async (user: User) => {
-	return await new SignJWT(user)
+	const rf = await new SignJWT({ id: user.id })
 		.setProtectedHeader({ alg: 'HS256' })
 		.setIssuedAt()
 		.setExpirationTime('1 day')
-		.sign(key)
+		.sign(rfKey)
+
+	return { as, rf }
 }
 
-export async function verifyToken(token: string): Promise<any> {
+export async function verifyAccessToken(token: string): Promise<any> {
+	const key = new TextEncoder().encode(process.env.ACCESS_TOKEN_SECRET)
+
+	const { payload } = await jwtVerify(token, key, {
+		algorithms: ['HS256'],
+	})
+
+	return payload
+}
+
+export async function verifyRefreshToken(token: string): Promise<any> {
+	const key = new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET)
+
 	const { payload } = await jwtVerify(token, key, {
 		algorithms: ['HS256'],
 	})

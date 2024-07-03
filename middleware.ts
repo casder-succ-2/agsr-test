@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers'
-import { verifyToken } from './lib/jwt'
+import { verifyAccessToken } from './lib/jwt'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(req: NextRequest) {
@@ -8,7 +8,7 @@ export async function middleware(req: NextRequest) {
 
 	try {
 		const newHeaders = new Headers(req.headers)
-		const { id } = await verifyToken(bearerToken?.value || '')
+		const { id } = await verifyAccessToken(bearerToken?.value || '')
 
 		newHeaders.set('userId', id)
 
@@ -27,6 +27,7 @@ export const config = {
 		'/api/system/:path*',
 		'/api/account/change-contact-info',
 		'/api/account/change-password',
+		'/api/account/logout',
 		'/api/account/update',
 		'/api/account',
 	],

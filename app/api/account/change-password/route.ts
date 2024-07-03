@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server'
 
 import { database } from '@/db'
 
-import { verifyToken } from '@/lib/jwt'
 import { compareTextWithHash, getHash } from '@/lib/security'
 
 const updateSchema = z.object({

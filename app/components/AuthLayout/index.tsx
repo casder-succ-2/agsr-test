@@ -10,7 +10,6 @@ import {
 	selectStatus,
 	selectAccount,
 	getAccoutnAsync,
-	changeStatus,
 } from '@/lib/store/features/account/accountSlice'
 import { increment } from '@/lib/store/features/notification/notificationSlice'
 
@@ -23,17 +22,12 @@ export const AuthLayout = ({ children }: Props) => {
 	const status = useAppSelector(selectStatus)
 	const account = useAppSelector(selectAccount)
 
-	//TODO: Does't work with http only
 	const auth_token = getAuthCookie('auth_token')
 
 	useLayoutEffect(() => {
 		if (auth_token) {
 			dispatch(increment())
 			dispatch(getAccoutnAsync())
-		}
-
-		if (!auth_token) {
-			dispatch(changeStatus('idle'))
 		}
 	}, [auth_token, dispatch])
 

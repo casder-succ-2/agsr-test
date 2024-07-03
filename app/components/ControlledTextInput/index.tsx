@@ -1,3 +1,5 @@
+'use client'
+
 import { Controller, Control } from 'react-hook-form'
 import { TextInput, TextInputProps } from '@mantine/core'
 
@@ -17,12 +19,7 @@ export const ControlledTextInput = ({
 		name={name}
 		control={control}
 		render={({ field }) => (
-			<TextInput
-				{...rest}
-				{...field}
-				error={errorMessage}
-				autoComplete='off'
-			/>
+			<TextInput {...rest} {...field} error={errorMessage} autoComplete='off' />
 		)}
 	/>
 )

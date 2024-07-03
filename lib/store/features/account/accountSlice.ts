@@ -3,6 +3,7 @@ import { User } from '@prisma/client'
 import { createAppSlice } from '@/lib/store/createAppSlice'
 
 import {
+	logout,
 	fetchAccount,
 	login,
 	updatePersonalInfo,
@@ -13,7 +14,6 @@ import {
 	type ChangePassword,
 } from './accountApi'
 import { removeAuthCookie } from '@/lib/cookies'
-import { PayloadAction } from '@reduxjs/toolkit'
 
 type State = {
 	status: 'idle' | 'loading' | 'failed'
@@ -22,7 +22,7 @@ type State = {
 }
 
 const initialState: State = {
-	status: 'loading',
+	status: 'idle',
 	user: null,
 	error: null,
 }
@@ -31,15 +31,23 @@ export const accountSlice = createAppSlice({
 	name: 'account',
 	initialState,
 	reducers: create => ({
-		logout: create.reducer(state => {
-			state.user = null
-			state.status = 'idle'
+		logoutAsync: create.asyncThunk(
+			async () => {
+				const response = await logout()
 
-			removeAuthCookie('auth_token')
-		}),
-		changeStatus: create.reducer((state, action: PayloadAction<'idle' | 'loading' | 'failed'>) => {
-			state.status = action.payload
-		}),
+				return response
+			},
+			{
+				fulfilled: state => {
+					state.user = null
+
+					removeAuthCookie('auth_token')
+				},
+				rejected: (state, action) => {
+					state.error = action.error.message as string
+				},
+			},
+		),
 		getAccoutnAsync: create.asyncThunk(
 			async () => {
 				const response = await fetchAccount()
@@ -66,11 +74,7 @@ export const accountSlice = createAppSlice({
 				return response
 			},
 			{
-				pending: state => {
-					state.status = 'loading'
-				},
 				fulfilled: (state, action) => {
-					state.status = 'idle'
 					state.user = action.payload.user
 				},
 				rejected: (state, action) => {
@@ -155,8 +159,7 @@ export const {
 	changePasswordAsync,
 	updatePersonalInfoAsync,
 	updateContactInfoAsync,
-	logout,
-	changeStatus,
+	logoutAsync,
 } = accountSlice.actions
 
 export const { selectAccount, selectStatus, selectError } =

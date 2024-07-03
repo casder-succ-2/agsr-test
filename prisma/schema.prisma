@@ -24,6 +24,8 @@ model User {
 
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
+
+  refreshToken String?
 }
 
 model AutomatedInformationSystem {

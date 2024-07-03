@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 import { database } from '@/db'
-import { generateToken } from '@/lib/jwt'
+import { generateTokens } from '@/lib/jwt'
 import { compareTextWithHash } from '@/lib/security'
 
 const loginSchema = z.object({
@@ -42,12 +42,23 @@ export async function POST(req: Request) {
 	if (!isPasswordMatch) {
 		return NextResponse.json(
 			{ message: 'The email or password you have entered is invalid' },
-			{ status: 401 },
+			{ status: 400 },
 		)
 	}
 
-	const accessToken = await generateToken(user)
-	cookies().set('auth_token', accessToken, { path: '/' })
+	const { as, rf } = await generateTokens(user)
+
+	cookies().set('auth_token', as, { path: '/' })
+	cookies().set('refresh_token', rf, { path: '/', httpOnly: true })
+
+	await database.user.update({
+		where: {
+			id: user.id,
+		},
+		data: {
+			refreshToken: rf,
+		},
+	})
 
 	return NextResponse.json({ user })
 }

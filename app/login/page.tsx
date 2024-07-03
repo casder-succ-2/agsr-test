@@ -1,15 +1,12 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Center, Stack, Title, Anchor } from '@mantine/core'
 
-import {
-	ControlledTextInput,
-	ControlledPasswordInput,
-} from '@/app/components'
+import { ControlledTextInput, ControlledPasswordInput } from '@/app/components'
 
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks'
 import {
@@ -31,9 +28,11 @@ const schema = z.object({
 type FormType = z.infer<typeof schema>
 
 export default function LoginPage() {
+	const [loading, setLoading] = useState(false)
+
 	const dispatch = useAppDispatch()
-	const accountStatus = useAppSelector(selectStatus)
 	const error = useAppSelector(selectError)
+	const accountStatus = useAppSelector(selectStatus)
 
 	const {
 		control,
@@ -49,7 +48,10 @@ export default function LoginPage() {
 	})
 
 	const onSubmit = (data: FormType) => {
+		setLoading(true)
 		dispatch(signIn(data))
+			.unwrap()
+			.finally(() => setLoading(false))
 	}
 
 	useEffect(() => {
@@ -86,7 +88,7 @@ export default function LoginPage() {
 							type='submit'
 							variant='filled'
 							className={classes.submitBtn}
-							loading={accountStatus === 'loading'}
+							loading={loading}
 						>
 							Вход
 						</Button>
