@@ -1,12 +1,16 @@
 .footer {
-	position: initial;
+	position: static;
+	padding: 80px 0;
+}
+
+.content {
 	display: grid;
 	grid-template-columns: repeat(3, auto);
 	grid-template-rows: repeat(3, auto);
-	min-width: 1520px;
-	max-width: 1520px;
 	margin: auto;
-	padding: 80px 0;
+	min-width: 1440px;
+	max-width: 1440px;
+	padding-inline: 135px;
 }
 
 .title {
@@ -28,6 +32,14 @@
 	font-weight: 500;
 	line-height: 16.94px;
 	color: #13a3b9;
+}
+
+.partners {
+	padding: 40px 0;
+	grid-column-start: span 3;
+	border-top: 1px solid #ededf4;
+	border-bottom: 1px solid #ededf4;
+	margin-top: 40px;
 }
 
 .partner {

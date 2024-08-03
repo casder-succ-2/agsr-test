@@ -28,7 +28,7 @@ export default function ProfilePage() {
 		<Stack gap={40} py={80}>
 			<Breadcrumbs
 				items={[
-					{ title: 'Гавная', href: '/' },
+					{ title: 'Главная', href: '/' },
 					{ title: 'Профиль', href: '/profile' },
 				]}
 			/>

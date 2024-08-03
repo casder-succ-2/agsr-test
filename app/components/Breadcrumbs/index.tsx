@@ -17,7 +17,7 @@ export const Breadcrumbs = ({ items }: Props) => {
 	return (
 		<MBreadcrumbs
 			separatorMargin='10px'
-			separator={<IconChevronLeft size={32} />}
+			separator={<IconChevronLeft fontSize={12} />}
 		>
 			{items.map(item => (
 				<Link

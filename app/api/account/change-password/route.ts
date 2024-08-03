@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 import { database } from '@/db'

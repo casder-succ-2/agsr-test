@@ -4,14 +4,40 @@
 	line-height: 43.57px;
 }
 
-.searchBtn {
-	&[data-size='lg'] {
-		button {
-			height: 56px;
-		}
+.searchInput {
+	flex-grow: 1;
+
+	input {
+		height: 61px !important;
+		background-color: white;
+		padding: 21px 45px 21px 45px !important;
+		border-radius: 10px 0 0 10px;
 	}
-	padding: 19.5px 42.5px;
+
+	label {
+		font-size: 18px;
+		font-weight: 600;
+		line-height: 21.78px;
+		margin-bottom: 20px;
+		color: #6e7686;
+	}
+}
+
+.searchBtn {
+	height: 61px;
+	padding: 21px 45px 21px 45px;
 	background-color: #13a3b9;
+	border-radius: 0px 10px 10px 0px;
+}
+
+.chip {
+	height: 34px;
+
+	label {
+		padding: 5px 10px;
+		height: 34px;
+		border: 1px solid #6e7686;
+	}
 }
 
 .chipText {
@@ -21,10 +47,20 @@
 	color: #6e7686;
 }
 
+.addButton {
+	height: 34px;
+	background: #13a3b9;
+}
+
 .tableViewChip {
+	padding: 0;
+	height: 32px;
+	border-radius: 5px;
+
 	span {
 		height: 32px;
 	}
+
 	label {
 		padding: 0;
 		height: 32px;
@@ -35,6 +71,12 @@
 			svg {
 				stroke: #13a3b9;
 			}
+		}
+	}
+
+	label[data-checked='true'] {
+		span:first-child {
+			display: none;
 		}
 	}
 }

@@ -1,9 +1,17 @@
 .header {
-	position: initial;
-	min-width: 1520px;
-	max-width: 1520px;
+	position: static;
+	padding: 16px 0;
+}
+
+.content {
 	margin: auto;
-	padding: 20px 0;
+	min-width: 1440px;
+	max-width: 1440px;
+	padding-inline: 135px;
+}
+
+.logo {
+	cursor: pointer;
 }
 
 .menuTarget {

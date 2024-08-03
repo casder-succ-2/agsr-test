@@ -1,5 +1,6 @@
-import { MantineProvider, ColorSchemeScript } from '@mantine/core'
+import { ReactElement } from 'react'
 import { Notifications } from '@mantine/notifications'
+import { MantineProvider, ColorSchemeScript } from '@mantine/core'
 
 import { theme } from '@/theme/theme'
 import { BaseLayout, AuthLayout } from '@/app/components'
@@ -14,7 +15,7 @@ export const metadata = {
 	description: 'Test project for AGSR',
 }
 
-export default function RootLayout({ children }: { children: any }) {
+export default function RootLayout({ children }: { children: ReactElement }) {
 	return (
 		<StoreProvider>
 			<html lang='en'>

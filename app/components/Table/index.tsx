@@ -34,7 +34,7 @@ export const Table = ({ items, totalCount, params, handleParams }: Props) => {
 	const pageCount = Math.ceil(totalCount / perPage)
 
 	return (
-		<Stack gap={20} >
+		<Stack gap={20}>
 			<Group justify='space-between'>
 				<Text className={classes.tableName}>Список АИС</Text>
 
@@ -57,16 +57,6 @@ export const Table = ({ items, totalCount, params, handleParams }: Props) => {
 									color='#13A3B9'
 									radius={'5px'}
 									className={classes.chip}
-									styles={{
-										iconWrapper: {
-											display: 'none',
-										},
-										root: {
-											padding: 0,
-											height: '32px',
-											borderRadius: '5px',
-										},
-									}}
 								>
 									<Text className={classes.chipText}>{value}</Text>
 								</Chip>

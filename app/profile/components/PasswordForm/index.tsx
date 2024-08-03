@@ -33,7 +33,6 @@ export const PasswordForm = () => {
 	const [isEditing, setEditing] = useState(false)
 
 	const dispatch = useAppDispatch()
-	const account = useAppSelector(selectAccount)
 
 	const {
 		reset,
@@ -72,6 +71,7 @@ export const PasswordForm = () => {
 	}
 	const handleEdit = () => {
 		setEditing(!isEditing)
+		reset({})
 	}
 
 	return (

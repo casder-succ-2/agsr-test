@@ -34,7 +34,6 @@ export const ContactsFrom = () => {
 	const {
 		reset,
 		control,
-		setError,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<FormType>({
@@ -55,6 +54,10 @@ export const ContactsFrom = () => {
 	}
 	const handleEdit = () => {
 		setEditing(!isEditing)
+		reset({
+			email: account?.email || '',
+			phoneNumber: account?.phoneNumber || '',
+		})
 	}
 
 	useEffect(() => {

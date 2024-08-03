@@ -37,7 +37,6 @@ export const PersonalInfoForm = () => {
 	const {
 		reset,
 		control,
-		setError,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<FormType>({
@@ -59,6 +58,16 @@ export const PersonalInfoForm = () => {
 	}
 	const handleEdit = () => {
 		setEditing(!isEditing)
+
+		if (account) {
+			reset({
+				lastName: account.lastName || '',
+				middleName: account.middleName || '',
+				firstName: account.firstName || '',
+				identificationNumber: account.identificationNumber || '',
+				userName: account.userName || '',
+			})
+		}
 	}
 
 	useEffect(() => {

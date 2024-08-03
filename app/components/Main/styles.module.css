@@ -1,9 +1,12 @@
-.body {
-	margin: auto;
-	min-width: 1520px;
-	max-width: 1520px;
+.main {
+	min-width: 1440px;
 	min-height: 100dvh;
 	padding-top: 0;
-	padding-left: 40px;
-	padding-right: 40px;
+}
+
+.content {
+	margin: auto;
+	max-width: 1440px;
+	min-width: 1440px;
+	padding-inline: 135px;
 }

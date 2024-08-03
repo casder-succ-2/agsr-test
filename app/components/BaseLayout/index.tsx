@@ -4,7 +4,7 @@ import { Footer, Header, Main } from '@/app/components'
 
 export const BaseLayout = ({ children }: { children: React.ReactElement }) => {
 	return (
-		<AppShell>
+		<AppShell miw='1440px'>
 			<Header />
 
 			<Main>{children}</Main>

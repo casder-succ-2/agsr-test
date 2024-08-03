@@ -51,22 +51,31 @@
 }
 
 .chip {
+	padding: 0;
+	height: 32px;
+	border-radius: 5px;
+
 	span {
 		padding: 5px 10px;
 		height: 32px;
 		text-align: center;
 	}
+
 	label {
 		border: 1px solid #a7b4cc;
 		padding: 0;
 		height: 32px;
+	}
 
-		&[data-checked='true'] {
-			border: 1px solid transparent;
+	label[data-checked='true'] {
+		span:first-child {
+			display: none;
+		}
 
-			p {
-				color: #fff;
-			}
+		border: 1px solid transparent;
+
+		p {
+			color: #fff;
 		}
 	}
 }

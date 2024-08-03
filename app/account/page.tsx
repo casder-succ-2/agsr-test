@@ -81,7 +81,7 @@ export default function AccountPage() {
 			<Stack gap={40}>
 				<Breadcrumbs
 					items={[
-						{ title: 'Гавная', href: '/' },
+						{ title: 'Главная', href: '/' },
 						{ title: 'Личный кабинет', href: '/account' },
 					]}
 				/>
@@ -97,24 +97,7 @@ export default function AccountPage() {
 				<Group align='end' gap={0} w={870}>
 					<TextInput
 						value={searchValue}
-						styles={{
-							root: {
-								flexGrow: 1,
-							},
-							input: {
-								height: '61px',
-								backgroundColor: 'white',
-								padding: '21px 45px 21px 45px',
-								borderRadius: '10px 0 0 10px',
-							},
-							label: {
-								fontSize: '18px',
-								fontweight: '600',
-								lineHeight: '21.78px',
-								marginBottom: '20px',
-								color: '#6E7686',
-							},
-						}}
+						className={classes.searchInput}
 						leftSection={<IconSearch color='#D4D7DB' />}
 						label='Выбор ИС/СР для внесения метаданных'
 						placeholder='Выберите ИС/СР для внесения метаданных...'
@@ -130,17 +113,7 @@ export default function AccountPage() {
 						}
 						onChange={e => setSearchValue(e.target.value)}
 					/>
-					<Button
-						onClick={handleList}
-						styles={{
-							root: {
-								height: '61px',
-								padding: '21px 45px 21px 45px',
-								backgroundColor: '#13A3B9',
-								borderRadius: '0px 10px 10px 0px',
-							},
-						}}
-					>
+					<Button onClick={handleList} className={classes.searchBtn}>
 						Показать
 					</Button>
 				</Group>
@@ -148,19 +121,10 @@ export default function AccountPage() {
 				<Group justify='space-between'>
 					<Group gap={20}>
 						<Chip
+							radius={5}
 							checked={false}
 							variant='outline'
-							radius='5px'
-							styles={{
-								root: {
-									height: '34px',
-								},
-								label: {
-									padding: '5px 10px',
-									height: '34px',
-									border: '1px solid #6E7686',
-								},
-							}}
+							className={classes.chip}
 						>
 							<Group gap={5}>
 								<IconEye color='#6E7686' />
@@ -170,19 +134,10 @@ export default function AccountPage() {
 						</Chip>
 
 						<Chip
+							radius={5}
 							checked={false}
 							variant='outline'
-							radius='5px'
-							styles={{
-								root: {
-									height: '34px',
-								},
-								label: {
-									padding: '5px 10px',
-									height: '34px',
-									border: '1px solid #6E7686',
-								},
-							}}
+							className={classes.chip}
 						>
 							<Group gap={5}>
 								<IconAlertCircle color='#6E7686' />
@@ -192,8 +147,8 @@ export default function AccountPage() {
 						</Chip>
 
 						<Button
+							className={classes.addButton}
 							onClick={createNewSystem}
-							styles={{ root: { height: '34px', background: '#13A3B9' } }}
 							leftSection={<IconPlus />}
 						>
 							Добавить
@@ -207,16 +162,6 @@ export default function AccountPage() {
 								value={'grid'}
 								radius={'5px'}
 								className={classes.tableViewChip}
-								styles={{
-									iconWrapper: {
-										display: 'none',
-									},
-									root: {
-										padding: 0,
-										height: '32px',
-										borderRadius: '5px',
-									},
-								}}
 							>
 								<IconLayoutGrid size={32} color='#6E7686' />
 							</Chip>
@@ -226,16 +171,6 @@ export default function AccountPage() {
 								value={'table'}
 								radius={'5px'}
 								className={classes.tableViewChip}
-								styles={{
-									iconWrapper: {
-										display: 'none',
-									},
-									root: {
-										padding: 0,
-										height: '32px',
-										borderRadius: '5px',
-									},
-								}}
 							>
 								<IconColumns size={32} color='#6E7686' />
 							</Chip>
