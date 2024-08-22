@@ -9,17 +9,17 @@ const rootReducer = combineSlices(accountSlice, systemSlice, notificationSlice)
 
 export type RootState = ReturnType<typeof rootReducer>
 
-export const makeStore = () => {
-	return configureStore({
-		reducer: rootReducer,
-	})
+export function makeStore() {
+  return configureStore({
+    reducer: rootReducer,
+  })
 }
 
 export type AppStore = ReturnType<typeof makeStore>
 export type AppDispatch = AppStore['dispatch']
 export type AppThunk<ThunkReturnType = void> = ThunkAction<
-	ThunkReturnType,
-	RootState,
-	unknown,
-	Action
+  ThunkReturnType,
+  RootState,
+  unknown,
+  Action
 >

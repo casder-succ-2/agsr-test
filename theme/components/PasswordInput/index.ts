@@ -4,24 +4,24 @@ import cx from 'clsx'
 import classes from './index.module.css'
 
 export default PasswordInput.extend({
-	defaultProps: {
-		size: 'lg',
-		radius: 5
-	},
+  defaultProps: {
+    size: 'lg',
+    radius: 5,
+  },
 
-	classNames: (_, props) => ({
-		root: classes.inputWrapper,
+  classNames: (_, props) => ({
+    root: classes.inputWrapper,
 
-		innerInput: cx(classes.input, {
-			[classes.inputError]: props.error
-		}),
+    innerInput: cx(classes.input, {
+      [classes.inputError]: props.error,
+    }),
 
-		input: cx(classes.input, {
-			[classes.inputError]: props.error
-		}),
+    input: cx(classes.input, {
+      [classes.inputError]: props.error,
+    }),
 
-		label: classes.label,
+    label: classes.label,
 
-		error: classes.errorMessage
-	})
+    error: classes.errorMessage,
+  }),
 })

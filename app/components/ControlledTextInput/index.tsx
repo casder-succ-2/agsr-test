@@ -1,25 +1,29 @@
 'use client'
 
-import { Controller, Control } from 'react-hook-form'
-import { TextInput, TextInputProps } from '@mantine/core'
+import type { Control } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
+import type { TextInputProps } from '@mantine/core'
+import { TextInput } from '@mantine/core'
 
 interface ControlledTextInputProps extends TextInputProps {
-	name: string
-	control: Control<any>
-	errorMessage?: string
+  name: string
+  control: Control<any>
+  errorMessage?: string
 }
 
-export const ControlledTextInput = ({
-	name,
-	control,
-	errorMessage,
-	...rest
-}: ControlledTextInputProps) => (
-	<Controller
-		name={name}
-		control={control}
-		render={({ field }) => (
-			<TextInput {...rest} {...field} error={errorMessage} autoComplete='off' />
-		)}
-	/>
-)
+export function ControlledTextInput({
+  name,
+  control,
+  errorMessage,
+  ...rest
+}: ControlledTextInputProps) {
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
+        <TextInput {...rest} {...field} error={errorMessage} autoComplete="off" />
+      )}
+    />
+  )
+}

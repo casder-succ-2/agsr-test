@@ -1,1 +1,1 @@
-export { default as FirstPartnerImg } from './first-partner.png';
+export { default as FirstPartnerImg } from './first-partner.png'
