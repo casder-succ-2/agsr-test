@@ -6,13 +6,13 @@ export async function generateTokens(user: User) {
   const asKey = new TextEncoder().encode(process.env.ACCESS_TOKEN_SECRET)
   const rfKey = new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET)
 
-  const as = await new SignJWT({ id: user.id })
+  const as = await new SignJWT({ sub: user.id })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setExpirationTime('5 seconds')
+    .setExpirationTime('5 minutes')
     .sign(asKey)
 
-  const rf = await new SignJWT({ id: user.id })
+  const rf = await new SignJWT({ sub: user.id })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime('1 day')
@@ -21,7 +21,7 @@ export async function generateTokens(user: User) {
   return { as, rf }
 }
 
-export async function verifyAccessToken(token: string): Promise<any> {
+export async function verifyAccessToken(token: string) {
   const key = new TextEncoder().encode(process.env.ACCESS_TOKEN_SECRET)
 
   const { payload } = await jwtVerify(token, key, {
@@ -31,7 +31,7 @@ export async function verifyAccessToken(token: string): Promise<any> {
   return payload
 }
 
-export async function verifyRefreshToken(token: string): Promise<any> {
+export async function verifyRefreshToken(token: string) {
   const key = new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET)
 
   const { payload } = await jwtVerify(token, key, {

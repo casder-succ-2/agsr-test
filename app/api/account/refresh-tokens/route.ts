@@ -8,10 +8,10 @@ export async function GET() {
   const cookieStore = cookies()
   const refreshToken = cookieStore.get('refresh_token')
 
-  const { id } = await verifyRefreshToken(refreshToken?.value || '')
+  const { sub } = await verifyRefreshToken(refreshToken?.value || '')
 
   const user = await database.user.findFirst({
-    where: { id },
+    where: { id: sub },
   })
 
   if (!user) {
@@ -24,7 +24,7 @@ export async function GET() {
   cookies().set('refresh_token', rf, { path: '/', httpOnly: true })
 
   const updatedUser = await database.user.update({
-    where: { id },
+    where: { id: sub },
     data: { refreshToken: rf },
   })
 

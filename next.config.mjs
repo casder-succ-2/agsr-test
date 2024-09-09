@@ -2,15 +2,25 @@
 const nextConfig = {
 	reactStrictMode: false,
 	swcMinify: true,
-	webpack: {
-		module: {
-			rules: [
-				{
-					test: /\.svg$/,
-					use: ['@svgr/webpack']
-				}
-			]
-		}
+    webpack: (config, { webpack }) => {
+		config.plugins.push(new webpack.NormalModuleReplacementPlugin(
+			/^node:/, 
+			(resource) => { 
+				resource.request = resource.request.replace(/^node:/, ''); 
+			}
+		))
+		
+		return {
+			module: {
+				rules: [
+					{
+					    test: /\.svg$/i,
+						use: ['@svgr/webpack'],
+					},
+				],
+			},
+			...config,  
+		};
 	}
 }
 

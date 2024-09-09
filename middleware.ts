@@ -10,9 +10,11 @@ export async function middleware(req: NextRequest) {
 
   try {
     const newHeaders = new Headers(req.headers)
-    const { id } = await verifyAccessToken(bearerToken?.value || '')
+    const { sub } = await verifyAccessToken(bearerToken?.value || '')
 
-    newHeaders.set('userId', id)
+    if (sub) {
+      newHeaders.set('userId', sub)
+    }
 
     return NextResponse.next({
       request: {
