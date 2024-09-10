@@ -60,7 +60,7 @@ export default function LoginPage() {
   }, [accountStatus, error, setError])
 
   return (
-    <Center h="100%">
+    <Center h="100dvh">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack gap={40}>
           <Title fz="48px">Вход</Title>

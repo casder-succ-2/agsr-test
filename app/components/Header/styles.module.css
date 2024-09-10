@@ -3,13 +3,6 @@
 	padding: 16px 0;
 }
 
-.content {
-	margin: auto;
-	min-width: 1440px;
-	max-width: 1440px;
-	padding-inline: 135px;
-}
-
 .logo {
 	cursor: pointer;
 }

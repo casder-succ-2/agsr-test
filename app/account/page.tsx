@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import {
   ActionIcon,
+  Box,
   Button,
   Chip,
   ChipGroup,
@@ -27,7 +28,7 @@ import classes from './styles.module.css'
 import { notificationService } from '@/services'
 
 import { TABS } from '@/lib/constants'
-import { Breadcrumbs, Table, Tabs } from '@/app/components'
+import { Breadcrumbs, Container, Table, Tabs } from '@/app/components'
 
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks'
 import {
@@ -77,113 +78,119 @@ export default function AccountPage() {
 
   return (
     <Stack pt={80} gap={80}>
-      <Stack gap={40}>
-        <Breadcrumbs
-          items={[
-            { title: 'Главная', href: '/' },
-            { title: 'Личный кабинет', href: '/account' },
-          ]}
-        />
-
-        <Stack gap={20}>
-          <Title className={classes.title}>Личный кабинет</Title>
-
-          <Tabs items={TABS} value={TABS[0].value} />
-        </Stack>
-      </Stack>
-
-      <Stack py={80} gap={40}>
-        <Group align="end" gap={0} w={870}>
-          <TextInput
-            value={searchValue}
-            className={classes.searchInput}
-            leftSection={<IconSearch color="#D4D7DB" />}
-            label="Выбор ИС/СР для внесения метаданных"
-            placeholder="Выберите ИС/СР для внесения метаданных..."
-            rightSection={(
-              <ActionIcon
-                onClick={clearSearchValue}
-                variant="subtle"
-                radius="xl"
-                color="#D4D7DB"
-              >
-                <IconCircleX />
-              </ActionIcon>
-            )}
-            onChange={e => setSearchValue(e.target.value)}
+      <Container>
+        <Stack gap={40}>
+          <Breadcrumbs
+            items={[
+              { title: 'Главная', href: '/' },
+              { title: 'Личный кабинет', href: '/account' },
+            ]}
           />
-          <Button onClick={handleList} className={classes.searchBtn}>
-            Показать
-          </Button>
-        </Group>
 
-        <Group justify="space-between">
-          <Group gap={20}>
-            <Chip
-              radius={5}
-              checked={false}
-              variant="outline"
-              className={classes.chip}
-            >
-              <Group gap={5}>
-                <IconEye color="#6E7686" />
+          <Stack gap={20}>
+            <Title className={classes.title}>Личный кабинет</Title>
 
-                <Text className={classes.chipText}>Просмотр ИС/ИР</Text>
-              </Group>
-            </Chip>
+            <Tabs items={TABS} value={TABS[0].value} />
+          </Stack>
+        </Stack>
+      </Container>
 
-            <Chip
-              radius={5}
-              checked={false}
-              variant="outline"
-              className={classes.chip}
-            >
-              <Group gap={5}>
-                <IconAlertCircle color="#6E7686" />
-
-                <Text className={classes.chipText}>Доп сведения ИС/ИР</Text>
-              </Group>
-            </Chip>
-
-            <Button
-              className={classes.addButton}
-              onClick={createNewSystem}
-              leftSection={<IconPlus />}
-            >
-              Добавить
-            </Button>
-          </Group>
-
-          <ChipGroup defaultValue="table">
-            <Group>
-              <Chip
-                h={32}
-                value="grid"
-                radius="5px"
-                className={classes.tableViewChip}
-              >
-                <IconLayoutGrid size={32} color="#6E7686" />
-              </Chip>
-
-              <Chip
-                h={32}
-                value="table"
-                radius="5px"
-                className={classes.tableViewChip}
-              >
-                <IconColumns size={32} color="#6E7686" />
-              </Chip>
+      <Box className={classes.grey}>
+        <Container>
+          <Stack py={80} gap={40}>
+            <Group align="end" gap={0} w={870}>
+              <TextInput
+                value={searchValue}
+                className={classes.searchInput}
+                leftSection={<IconSearch color="#D4D7DB" />}
+                label="Выбор ИС/СР для внесения метаданных"
+                placeholder="Выберите ИС/СР для внесения метаданных..."
+                rightSection={(
+                  <ActionIcon
+                    onClick={clearSearchValue}
+                    variant="subtle"
+                    radius="xl"
+                    color="#D4D7DB"
+                  >
+                    <IconCircleX />
+                  </ActionIcon>
+                )}
+                onChange={e => setSearchValue(e.target.value)}
+              />
+              <Button onClick={handleList} className={classes.searchBtn}>
+                Показать
+              </Button>
             </Group>
-          </ChipGroup>
-        </Group>
 
-        <Table
-          params={params}
-          items={systemList || []}
-          totalCount={systemCount}
-          handleParams={handleParams}
-        />
-      </Stack>
+            <Group justify="space-between">
+              <Group gap={20}>
+                <Chip
+                  radius={5}
+                  checked={false}
+                  variant="outline"
+                  className={classes.chip}
+                >
+                  <Group gap={5}>
+                    <IconEye color="#6E7686" />
+
+                    <Text className={classes.chipText}>Просмотр ИС/ИР</Text>
+                  </Group>
+                </Chip>
+
+                <Chip
+                  radius={5}
+                  checked={false}
+                  variant="outline"
+                  className={classes.chip}
+                >
+                  <Group gap={5}>
+                    <IconAlertCircle color="#6E7686" />
+
+                    <Text className={classes.chipText}>Доп сведения ИС/ИР</Text>
+                  </Group>
+                </Chip>
+
+                <Button
+                  className={classes.addButton}
+                  onClick={createNewSystem}
+                  leftSection={<IconPlus />}
+                >
+                  Добавить
+                </Button>
+              </Group>
+
+              <ChipGroup defaultValue="table">
+                <Group>
+                  <Chip
+                    h={32}
+                    value="grid"
+                    radius="5px"
+                    className={classes.tableViewChip}
+                  >
+                    <IconLayoutGrid size={32} color="#6E7686" />
+                  </Chip>
+
+                  <Chip
+                    h={32}
+                    value="table"
+                    radius="5px"
+                    className={classes.tableViewChip}
+                  >
+                    <IconColumns size={32} color="#6E7686" />
+                  </Chip>
+                </Group>
+              </ChipGroup>
+            </Group>
+
+            <Table
+              params={params}
+              items={systemList || []}
+              totalCount={systemCount}
+              handleParams={handleParams}
+            />
+          </Stack>
+        </Container>
+      </Box>
     </Stack>
   )
 }
